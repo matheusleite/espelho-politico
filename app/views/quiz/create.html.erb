@@ -4,7 +4,7 @@
     var user = <%= current_user.id %>;
     var proposition = $(".proposition").attr('id');
     var like = $(this).attr('id');
-    $(".quiz").load("/quiz .side-nav", {vote: {user_id: user, proposition_id: proposition, 'approved?': like, parliamentarian_id: null, theme_id: null}})
+    $(".quiz").load("/quiz .side-nav", {vote: {user_id: user, proposition_id: proposition, 'approved?': like, parliamentarian_id: null}})
   });
 </script>
 

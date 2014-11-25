@@ -4,8 +4,7 @@ class CreateVotes < ActiveRecord::Migration
       t.references :user
       t.references :proposition
       t.references :parliamentarian
-      t.references :themes
-      t.boolean :approved? , default: false
+       t.boolean :approved? , default: false
     end
     add_index(
       :votes,
