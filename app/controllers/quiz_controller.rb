@@ -11,6 +11,8 @@ class QuizController < ApplicationController
   def create
     if (params[:vote] && params[:vote][:approved?] != "Pular")
       params[:vote][:parliamentarian_id] = Proposition.find(params[:vote][:proposition_id]).parliamentarian_id
+      params[:vote][:theme_id] = Proposition.find(params[:vote][:proposition_id]).theme_id
+
       Vote.create(vote_params)
     end
 
@@ -35,6 +37,6 @@ class QuizController < ApplicationController
 
   private
     def vote_params
-      params.require(:vote).permit(:user_id, :proposition_id, :approved?, :parliamentarian_id)
+      params.require(:vote).permit(:user_id, :proposition_id, :approved?, :parliamentarian_id, :theme_id)
     end
 end
