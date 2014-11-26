@@ -20,7 +20,11 @@
         <div class="large-12 columns">
           <br>
             <% if @prop_parliamentarian.count == 0 %>
-              <dd><center><b> O parlamentar não possui proposições.</b></center></dd>
+              <center>
+                <div data-alert class="alert-box info radious">
+                  O parlamentar não possui proposições.
+                </div>
+              </center>
             <% end %>
             <% else %>
               <% @prop_parliamentarian.each do |pro| %>
