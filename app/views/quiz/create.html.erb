@@ -44,21 +44,15 @@
                         <br><br><b>Ementa da Proposição:</b>
                         <br><%= @proposition.amendment %>
                       </p>
-                      <div class="quizbutton" style="position: relative; left: 30%; top: 0px; display: inlineflex">
-                        <table style="background: transparent; border: 0">
-                          <tr>
-                            <td>
-                              <%= button_to 'Aprova', 'javascript:;', class: "button", id: true %>
-                            </td>
-                            <td>
-                              <%= button_to 'Desaprova', 'javascript:;', class: "button", id: false %>
-                            </td>
-                            <td>
-                              <%= button_to 'Pular', 'javascript:;', class: "button", id: "Pular"%>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
+                      <ul class="button-group", style="position: relative; left: 30%; top: 0px;">
+                          <li><%= button_to 'Aprovo', 'javascript:;', class: "button", id: true %></li>
+                          <li><%= button_to 'Desaprovo', 'javascript:;', class: "button", id: false %></li>
+                          <li><%= button_to 'Pular', 'javascript:;', class: "button", id: "Pular"%></li>
+                      </ul>
+                      <ul class="pricing-table">
+                        <li class="title">Essa proposição não tem um resumo claro?<br>Clique no botão abaixo para enviar um email automático para o parlamentar solicitando um resumo conciso.</li>
+                        <li class="cta-button"><%= button_to "Reclamar", 'javascript:;', class: "button alert", id: "Reclamar"%></li>
+                      </ul>
                     <% end %>
                   <% else %>
                     Logue-se

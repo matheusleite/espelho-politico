@@ -9,10 +9,17 @@ class QuizController < ApplicationController
   end
 
   def create
-    if (params[:vote] && params[:vote][:approved?] != "Pular")
+    if (params[:vote])
       params[:vote][:parliamentarian_id] = Proposition.find(params[:vote][:proposition_id]).parliamentarian_id
 
-      Vote.create(vote_params)
+      if (params[:vote][:approved?] == "Reclamar")
+        UserMailer.complaint_about_proposition(current_user.id, params[:vote][:parliamentarian_id], params[:vote][:proposition_id]).deliver
+        params[:vote][:approved?] = "Pular"
+      end
+
+      if (params[:vote] && params[:vote][:approved?] != "Pular")
+        Vote.create(vote_params)
+      end
     end
 
     remover_proposicoes_votadas(current_user.id)
