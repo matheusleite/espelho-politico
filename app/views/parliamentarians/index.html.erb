@@ -19,6 +19,7 @@
 
             console.log(response)
             for(var i = 0; i < response.length; i++) {
+
                 parliamentarian_list.innerHTML += "<div><ul><p align='center'><span><img src='" + response[i].url_photo + "'></span></p><p align='center'><b><a href='/profile/" + response[i].id +  "'> " + response[i].name + "</a></b></p><li align='left'> Partido: " + response[i].party + "</li><li align='left'>Estado: " + response[i].state + "</ul></div>";
             }
         },
@@ -58,7 +59,7 @@
 
             console.log(response)
             for(var i = 0; i < response.length; i++) {
-            parliamentarian_list.innerHTML += "<div><ul><p align='center'><span><img src='" + response[i].url_photo + "'></span></p><p align='center'><b><a href='/profile/" + response[i].id +  "'> " + response[i].name + "</a></b></p><li align='left'> Partido: " + response[i].party + "</li><li align='left'>Estado: " + response[i].state + "</ul></div>";
+              parliamentarian_list.innerHTML += "<div><ul><p align='center'><span><img src='" + response[i].url_photo + "'></span></p><p align='center'><b><a href='/profile/" + response[i].id +  "'> " + response[i].name + "</a></b></p><li align='left'> Partido: " + response[i].party + "</li><li align='left'>Estado: " + response[i].state + "</ul></div>";
             }
         },
         error: function () {
