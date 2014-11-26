@@ -38,9 +38,13 @@
                       </center>
                     <% else %>
                       <p class="proposition", id= <%= @proposition.id %>>
-                        <%= @proposition.explanation %>
+                        <b>Explicação da Proposição:</b>
+                        <br><%= @proposition.explanation %>
+
+                        <br><br><b>Ementa da Proposição:</b>
+                        <br><%= @proposition.amendment %>
                       </p>
-                      <div class="quizbutton" style="position: absolute; left: 30%; top: 150px; display: inlineflex">
+                      <div class="quizbutton" style="position: relative; left: 30%; top: 0px; display: inlineflex">
                         <table style="background: transparent; border: 0">
                           <tr>
                             <td>
