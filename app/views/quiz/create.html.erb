@@ -28,35 +28,36 @@
             <div class="quiz" style="width:100%;height:600px;line-height:3em;padding:20px;float:left">
               <ul class="side-nav">
                 <li class="toggle-topbar menu-icon">
-                  <% if user_signed_in? %>
-                    <% if @proposition_hold.empty? %>
-                      <center>
-                        <div data-alert class="alert-box info radious">
-                          Não há mais proposições para serem votadas. Clique no botão abaixo para ver os resultados.
-                        </div>
-                        <%= button_to 'Visualizar Perfil de Interesse', interest_profile_index_path, :method => :get, class: "button" %>
-                      </center>
-                    <% else %>
-                      <p class="proposition", id= <%= @proposition.id %>>
-                        <b>Explicação da Proposição:</b>
-                        <br><%= @proposition.explanation %>
+                    <% if user_signed_in? %>
+                        <% if @proposition_hold.empty? %>
+                          <center>
+                            <div data-alert class="alert-box info radious">
+                              Não há mais proposições para serem votadas. Clique no botão abaixo para ver os resultados.
+                            </div>
+                            <%= button_to 'Visualizar Perfil de Interesse', interest_profile_index_path, :method => :get, class: "button" %>
+                          </center>
+                        <% else %>
+                          <p class="proposition", id= <%= @proposition.id %>>
+                            <b>Explicação da Proposição:</b>
+                            <br><%= @proposition.explanation %>
 
-                        <br><br><b>Ementa da Proposição:</b>
-                        <br><%= @proposition.amendment %>
-                      </p>
-                      <ul class="button-group", style="position: relative; left: 30%; top: 0px;">
-                          <li><%= button_to 'Aprovo', 'javascript:;', class: "button", id: true %></li>
-                          <li><%= button_to 'Desaprovo', 'javascript:;', class: "button", id: false %></li>
-                          <li><%= button_to 'Pular', 'javascript:;', class: "button", id: "Pular"%></li>
-                      </ul>
-                      <ul class="pricing-table">
-                        <li class="title">Essa proposição não tem um resumo claro?<br>Clique no botão abaixo para enviar um email automático para o parlamentar solicitando um resumo conciso.</li>
-                        <li class="cta-button"><%= button_to "Reclamar", 'javascript:;', class: "button alert", id: "Reclamar"%></li>
-                      </ul>
+                            <br><br><b>Ementa da Proposição:</b>
+                            <br><%= @proposition.amendment %>
+                          </p>
+                          <ul class="button-group", style="position: relative; left: 25%; top: 0px;">
+                              <li><%= button_to 'Aprovo', 'javascript:;', class: "button", id: true %></li>
+                              <li><%= button_to 'Desaprovo', 'javascript:;', class: "button", id: false %></li>
+                              <li><%= button_to 'Pular', 'javascript:;', class: "button", id: "Pular"%></li>
+                              <li><%= button_to 'Concluir', interest_profile_index_path, :method => :get, class: "button" %></li>
+                          </ul>
+                          <ul class="pricing-table">
+                            <li class="title">Essa proposição não tem um resumo claro?<br>Clique no botão abaixo para enviar um email automático para o parlamentar solicitando um resumo conciso.</li>
+                            <li class="cta-button"><%= button_to "Reclamar", 'javascript:;', class: "button alert", id: "Reclamar"%></li>
+                          </ul>
+                        <% end %> 
+                    <% else %>
+                      Logue-se
                     <% end %>
-                  <% else %>
-                    Logue-se
-                  <% end %>
                 </li>
               </ul>
             </div>
