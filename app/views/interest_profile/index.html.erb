@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  </head>
+  <body>
+    <div class="row">
+      <div class="small-12 columns">
+        <div class="off-canvas-wrap" data-offcanvas>
+          <div class="inner-wrap">
+            <div class="large-0 pull-0 columns">
+              <nav class="top-bar show-for-medium-up" data-topbar>
+                <ul class="title-area">
+                  <li class="name">
+                    <h1><a href="#">Perfil de Interesse</a></h1>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div style="width:100%;padding:20px;float:left">
+              <ul class="side-nav">
+                <li class="toggle-topbar menu-icon">
+                  <% if user_signed_in? %>
+                      O perfil de interesse mostra o parlamentar e tema que você tem mais e menos afinidade. Ele é baseado na votação de cada proposição mostrada no quiz. Então, quanto mais você se dedica a realização do quiz, mais preciso serão os resultados aqui apresentados.<br><br>
+
+                      <% if @interest.to_a.empty? %>
+                        <center><div class="alert-box info radius"> Você não realizou o quiz ainda</div>
+                        <%= button_to "Realizar Quiz", quiz_index_path, class:"button" %>
+                        </center>
+                      <% else %>
+                        <ul class="pricing-table">
+                          <li class="title">Parlamentar mais aprovado </li>
+                          <li class="bullet-item"><%= sort_most_approved_parllamentarian(@interest).name.humanize.mb_chars.titleize
+   %></li>
+                        </ul>
+                        <ul class="pricing-table">
+                          <li class="title">Parlamentar mais reprovado </li>
+                          <li class="bullet-item"><%= sort_most_disapproved_parllamentarian(@interest).name.humanize.mb_chars.titleize
+   %></li>
+                        </ul>
+                        <ul class="pricing-table">
+                          <li class="title">Tema mais aprovado </li>
+                          <li class="bullet-item"><%= sort_most_approved_theme(@interest).description %></li>
+                        </ul>
+                        <ul class="pricing-table">
+                          <li class="title">Tema mais reprovado </li>
+                          <li class="bullet-item"><%= sort_most_disapproved_theme(@interest).description %></li>
+                        </ul>
+                      <% end %>
+                    <% else %>
+                    Logue-se
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

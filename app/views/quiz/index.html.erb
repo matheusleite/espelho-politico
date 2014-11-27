@@ -16,11 +16,20 @@
                 </ul>
               </nav>
             </div>
-            <div style="width:100%;height:600px;line-height:3em;padding:20px;float:left">
+            <div style="width:100%;height: 300px;padding:20px;float:left">
               <ul class="side-nav">
                 <li class="toggle-topbar menu-icon">
                   <% if user_signed_in? %>
-                    Texto explicativo sobre o quiz
+                    <div class="panel" style="background-color: #008CBA; color: #FFFFFF">
+                      O quiz é uma feramenta para ajudar o eleitor a descobrir o seu perfil de interesse político.
+                      <br>
+                      A partir de agora, serão apresentadas várias proposições reais de parlamentares para serem votadas.
+                      <br>
+                      Nosso sistema interpretará suas votações e irá lhe mostrar os parlamentares e os temas mais e menos votados.
+                      <br>
+                      Quanto mais votações você realizar mais precisos serão os resultados.
+                      <br>
+                    </div>
                     <div class="quiz-button" style="width:10%; position: absolute; left:45%; padding-top: 20px";>
                       <%= button_to 'Iniciar Quiz', quiz_index_path, class: "button postfix" %>
                     </div>
