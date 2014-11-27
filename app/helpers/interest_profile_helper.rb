@@ -13,14 +13,12 @@ module InterestProfileHelper
 
   def sort_most_approved_theme(interest)
     interest = interest.where(approved?: true)
-    id = sort_most_voted_theme(interest)
-    Theme.find(id)
+    sort_most_voted_theme(interest)
   end
 
   def sort_most_disapproved_theme(interest)
     interest = interest.where(approved?: false)
-    id = sort_most_voted_theme(interest)
-    Theme.find(id)
+    sort_most_voted_theme(interest)
   end
 
   def sort_most_voted_theme(interest)
@@ -31,6 +29,6 @@ module InterestProfileHelper
       end
     end
 
-    themes.group_by(&:to_s).values.max_by(&:size).first
+    Theme.find(themes.group_by(&:to_s).values.max_by(&:size).first)
   end
 end
