@@ -22,11 +22,10 @@ class RankingsController < ApplicationController
   end
 
   def count_other_themes
-    qtdThemes = Theme.count
     qtd = 0
-    for i in 10..qtdThemes
-      qtd = qtd + @themes[i].propositions.count
-      return qtd
+    for i in 11..Theme.count
+      qtd = qtd + @themes[i-1].propositions.count
     end
+    qtd
   end
 end
