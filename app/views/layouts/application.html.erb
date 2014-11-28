@@ -26,18 +26,18 @@
       <section class="top-bar-section">
         <!-- Right Nav Section -->
       <ul class="right">
-        <li class="active"><a  target="_blank"><%= link_to 'Início', root_url %></a></li>
-        <li class="active"><a  target="_blank"><%= link_to 'Perfil de Interesse', interest_profile_index_path %></a></li>
-        <li class="active"><a  target="_blank"><%= link_to 'Perfil Parlamentar', parliamentarians_path %></a></li>
-        <li class="active"><a  target="_blank"><%= link_to 'Rankings', rankings_path %></a></li>
+        <li class="active"><a target="_blank"><%= link_to 'Início', root_url %></a></li>
+        <li class="active"><a target="_blank"><%= link_to 'Perfil Parlamentar', parliamentarians_path %></a></li>
+        <li class="active"><a target="_blank"><%= link_to 'Rankings', rankings_path %></a></li>
         <li class="active"><a target="_blank"><%= link_to 'Quiz', quiz_index_path %></a></li>
         <li class="active"><a target="_blank">Sobre</a></li>
          <% if user_signed_in? %>
-          <li class="active"><a  target="_blank"><%= link_to current_user.name, edit_user_registration_path %></a></li>
-          <li class="active"><a  target="_blank"><%= link_to 'Sair', destroy_user_session_path, :method => :delete %></a></li>
-        <%else%>
-          <li class="active"><a  target="_blank"><%= link_to 'Entrar', new_user_session_path %></a></li>
-        <%end%>
+          <li class="active"><a target="_blank"><%= link_to current_user.name, edit_user_registration_path %></a></li>
+          <li class="active"><a target="_blank"><%= link_to 'Perfil de Interesse', interest_profile_index_path %></a></li>
+          <li class="active"><a target="_blank"><%= link_to 'Sair', destroy_user_session_path, :method => :delete %></a></li>
+        <% else %>
+          <li class="active"><a target="_blank"><%= link_to 'Entrar', new_user_session_path %></a></li>
+        <% end %>
       </ul>
     </section>
   </nav>
