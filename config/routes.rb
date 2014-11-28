@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :themes
   resources :rankings
   resources :profile
+  resources :interest_profile
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   post 'ranking' => 'rankings#index'
