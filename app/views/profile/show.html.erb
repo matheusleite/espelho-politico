@@ -6,32 +6,31 @@
   <dd><h1><b><%= p.name %></b></h1></dd>
 </font>
 </p>
-  <hr>
-  <h3><center><b> Informações</b></center></h3>
-  <dd><right>Partido: <%= p.party %></right></dd>
-  <dd>Estado: <%= p.state %></dd>
-  <dd>Email: <%= p.email %> </dd>
-  <dd>Telefone: <%= p.phone %></dd>
-  <dd>Endereço: Praça dos Três Poderes - Esplanada dos Ministérios, Brasília. Gabinete: <%= p.cabinet %> </dd>
-  <hr>
-    <h3><center><b> Proposições</b></center></h3>
-    <section class="main-section">
-      <div class="row">
-        <div class="large-12 columns">
-          <br>
-            <% if @prop_parliamentarian.count == 0 %>
-              <dd><center><b> O parlamentar não possui proposições.</b></center></dd>
-            <% end %>
-            <% else %>
-              <% @prop_parliamentarian.each do |pro| %>
-                <p>
-                <dd>Número: <%= pro.number %></dd>
-                <dd>Ano: <%= pro.year %></dd>
-                <dd>Tipo: <%= pro.proposition_types %></dd>
-                <dd>Emenda: <%= pro.amendment %></dd>
-                <dd>Proposta: <%= pro.explanation %></dd>
-                </p>
-              <% end %>
-        </div>
+<ul class="pricing-table">
+  <li class="title">Informações</li>
+  <li class="price">Partido: <%= p.party %></li>
+  <li class="bullet-item">Estado: <%= p.state %></li>
+  <li class="bullet-item">Email: <%= p.email %></li>
+  <li class="bullet-item">Telefone: <%= p.phone %></li>
+  <li class="bullet-item">Endereço: Praça dos Três Poderes - Esplanada dos Ministérios, Brasília. Gabinete: <%= p.cabinet%></li>
+</ul>
+<ul class="pricing-table">
+  <li class="title">Proposições</li>
+  <section class="main-section">
+    <div class="row">
+      <div class="large-12 columns">
+        <% if @prop_parliamentarian.count == 0 %>
+          <li class="price">O parlamentar não possui proposições.</li>
+        <%end%>
+        <%else%>
+          <% @prop_parliamentarian.each do |pro| %>
+            <li class="price">Número: <%= pro.number %></li>
+            <li class="bullet-item">Ano: <%= pro.year %></li>
+            <li class="bullet-item">Tipo: <%= pro.proposition_types %></li>
+            <li class="bullet-item">Emenda: <%= pro.amendment %></li>
+            <li class="bullet-item">Proposta: <%= pro.explanation %></li>
+          <%end%>
       </div>
-    </section>
+    </div>
+  </section>
+</ul>

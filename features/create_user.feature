@@ -21,5 +21,5 @@ Funcionalidade: Criar novo usuario
     E eu digito "usuario" no campo "user_username"
     E eu digito "password" no campo "user_password"
     E eu digito "password" no campo "user_password_confirmation"
-    Então clico no botão "Criar usuário"
+    Então clico no botão "Criar"
     Então eu vejo na tela "Entendendo o projeto Espelho Político"

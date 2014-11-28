@@ -1,12 +1,15 @@
-<h2>Reenviar instruções de confirmação</h2>
-
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+<div class="card" style="margin-left: 200px; margin-right: 200px; margin-bottom: 50px;">
+  <h2 align="center"><font face="Candara" color="#808080">Reenviar instruções de confirmação</font></h2>
+  <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
   <%= devise_error_messages! %>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
-
-  <div><%= f.submit "Reenviar e-mail de confirmação" %></div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+    <br>
+    <div style="position: absolute; left: 33%" class="small-4 columns">
+      <%= f.email_field :email, autofocus: true, placeholder: "Email" %>
+    </div>
+    <br><br><br>
+    <div style="position: absolute; left: 37%" class="small-3 columns">
+      <%= f.submit "Reenviar e-mail de confirmação", class: "button postfix" %>
+</div>
+  <% end %>
+<br><br><br><br><br>
+</div>

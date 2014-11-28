@@ -1,9 +1,9 @@
-<p>
-  <p align="center"><img src="<%= p.url_photo %>"/></p>
-  <p align="center"><b><%= p.name %></b></p>
-  <li>Partido: <%= p.party %></li>
-  <li>Estado: <%= p.state %></li>
-  <li>Email: <%= p.email %> </li>
-  <li>Telefone: <%= p.phone %></li>
-  <li>Endereço: Praça dos Três Poderes - Esplanada dos Ministérios, Brasília. Gabinete: <%= p.cabinet %> </li>
-</p>
+<p align="center"><img src="<%= p.url_photo %>"/></p>
+<ul class="pricing-table">
+  <li class="title"><%= p.name %></li>
+  <li class="price">Partido: <%= p.party %></li>
+  <li class="description">Estado: <%= p.state %></li>
+  <li class="bullet-item">Email: <%= p.email %></li>
+  <li class="bullet-item">Telefone: <%= p.phone %></li>
+  <li class="bullet-item">Endereço: Praça dos Três Poderes - Esplanada dos Ministérios, Brasília. Gabinete: <%= p.cabinet %></li>
+</ul>

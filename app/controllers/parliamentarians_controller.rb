@@ -5,15 +5,6 @@ class ParliamentariansController < ApplicationController
     @ordened_partys = order_partys(Parliamentarian.select(:party).distinct)
   end
 
-  def show
-    parliamentarian_id = Integer(params[:id]) rescue nil
-    unless parliamentarian_id.nil? then
-      @parliamentarian = Parliamentarian.find(params[:id])
-      render nothing: true
-    end
-    render nothing: true
-  end
-
   def new
     @parliamentarian = Parliamentarian.new
     render nothing: true

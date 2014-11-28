@@ -1,6 +1,39 @@
-<%= javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
-<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Task', 'Hours per Day'],
+      [gon.data[0].description, <%= @themes[0].propositions.count %>],
+      [gon.data[1].description, <%= @themes[1].propositions.count %>],
+      [gon.data[2].description, <%= @themes[2].propositions.count %>],
+      [gon.data[3].description, <%= @themes[3].propositions.count %>],
+      [gon.data[4].description, <%= @themes[4].propositions.count %>],
+      [gon.data[5].description, <%= @themes[5].propositions.count %>],
+      [gon.data[6].description, <%= @themes[6].propositions.count %>],
+      [gon.data[7].description, <%= @themes[7].propositions.count %>],
+      [gon.data[8].description, <%= @themes[8].propositions.count %>],
+      [gon.data[9].description, <%= @themes[9].propositions.count %>],
+      ['Outros', <%= @qtdOutros %>]
+    ]); 
+    
+    var options = {
+      title: 'Top 10 Temas',
+      is3D: true,
+      backgroundColor: 'transparent'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+    chart.draw(data, options);
+  }
+</script>
+
+<script 
+  src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+</script>
+
 <script type="text/javascript">
   $(document).on( "click", ".theme-chooser", function() {
     $(".theme-chooser").css("background-color", "#F0FFF0");
@@ -9,61 +42,54 @@
     $("#ranking").load("/ranking #content", {theme_id: $(this).text()})
   });
 </script>
+
 <body>
   <div class="row">
     <div class="small-12 columns">
       <div class="off-canvas-wrap" data-offcanvas>
         <div class="inner-wrap">
           <div class="large-0 pull-0 columns">
-          <nav class="top-bar show-for-medium-up" data-topbar>
-              <ul class="title-area">
-                <li class="name">
-                  <h1><a href="#">Ranking Área de Investimento x Parlamentares</a></h1>
-                </li>
-              </ul>  
+            <nav class="top-bar show-for-medium-up" data-topbar>
+                <ul class="title-area">
+                  <li class="name">
+                    <h1><a href="#">Ranking Área de Investimento x Parlamentares</a></h1>
+                  </li>
+                </ul>  
             </nav>
-                <div>
-                  <%= pie_chart [[@themes[0].description, @themes[0].propositions.count],
-                                [@themes[1].description, @themes[1].propositions.count],
-                                [@themes[2].description, @themes[2].propositions.count],
-                                [@themes[3].description, @themes[3].propositions.count],
-                                [@themes[4].description, @themes[4].propositions.count],
-                                [@themes[5].description, @themes[5].propositions.count],
-                                [@themes[6].description, @themes[6].propositions.count],
-                                [@themes[7].description, @themes[7].propositions.count],
-                                [@themes[8].description, @themes[8].propositions.count],
-                                [@themes[9].description, @themes[9].propositions.count],
-                                ["Outros", @qtdOutros]
-                                ] %>
-                </div>     
-          </div>
-      
-          <div style="width:50%;height:600px;line-height:3em;overflow:scroll;padding:5px;float:left">
-            <aside>
-              <ul class="side-nav">
-                <li class="toggle-topbar menu-icon">
-                  <% @themes.each do |theme| %>
-                    <% link = theme.description + ' (' + theme.propositions.count.to_s + ')' %>
-                    <% theme_id = Theme.find_by(description: theme.description).id %>
-                    <li><%= link_to link, 'javascript:;', class: "theme-chooser"  %></li>
-                  <% end %>
-                </li>
-              </ul>
-          </div>
-
-          <div id="ranking" style="width:48.5%;height:600px;line-height:3em;overflow:scroll;padding:5px;">
-            <div id="content">
-              <ul class="side-nav">
-                <% request = sort_parliamentarians_by_propositions_per_theme(@selected_theme_id) %>
-                <% request.each do |p| %>
+            
+            <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+            
+            <div style="width:50%;height:600px;line-height:3em;overflow:scroll;padding:5px;float:left">
+              <aside>
+                <ul class="side-nav">
                   <li class="toggle-topbar menu-icon">
-                  <%= link_to show_name_and_number_of_propositions(@selected_theme_id, p.parliamentarian_id), profile_path(p.parliamentarian_id) %>
-                <% end %>
-              </ul>
+                    <% @themes.each do |theme| %>
+                      <% link = theme.description + ' (' + theme.propositions.count.to_s + ')' %>
+                      <% theme_id = Theme.find_by(description: theme.description).id %>
+                      <li>
+                        <%= link_to link, 'javascript:;', class: "theme-chooser"  %>
+                      </li>
+                    <% end %>
+                  </li>
+                </ul>
+              </aside>
+            </div>
+
+            <div id="ranking" style="width:48.5%;height:600px;line-height:3em;overflow:scroll;padding:5px;">
+              <div id="content">
+                <ul class="side-nav">
+                  <% request = sort_parliamentarians_by_propositions_per_theme(@selected_theme_id) %>
+                  <% request.each do |p| %>
+                    <li class="toggle-topbar menu-icon">
+                      <%= link_to show_name_and_number_of_propositions(@selected_theme_id, p.parliamentarian_id), profile_path(p.parliamentarian_id) %>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
             </div>
           </div>
-       <a class="exit-off-canvas"></a>
-       </div>
-     </div>
-   </div>
-</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

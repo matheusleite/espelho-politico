@@ -1,27 +1,28 @@
 <%= form_for(@user) do |f| %>
   <%= render 'shared/error_messages' %>
 
-  <div class="field">
-    <p>
-      <%= f.label 'Nome' %>
-      <%= f.text_field :name %>
-    </p>
-    <p>
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-    </p>
-    <p>
-    <%= f.label 'Nome de Usuário' %>
-    <%= f.text_field :username %>
-    </p>
-    <p>
-    <%= f.label 'Senha' %>
-    <%= f.password_field :password %>
-    </p>
-    <p>
-    <%= f.label 'Confirmação de Senha' %>
-    <%= f.password_field :password_confirmation %>
-    <p><%= f.submit %></p>
-  </div>
+
+    <div class="small-5 columns" style="left: 30%">
+      <%= f.text_field :name , placeholder: "Nome"%>
+    </div><br><br><br>
+    <div class="small-5 columns" style="left: 30%">
+      <%= f.text_field :email ,placeholder: "Email" %>
+    </div><br><br><br>
+    <div class="small-5 columns" style="left: 30%">
+      <%= f.text_field :username , placeholder: "Nome de Usuário"%>
+    </div><br><br><br>
+    <div class="small-5 columns" style="left: 30%">
+      <%= f.password_field :password, placeholder: "Senha" %>
+    </div><br><br><br>
+    <div class="small-5 columns" style="left: 30%">
+      <%= f.password_field :password_confirmation, placeholder: "Repita a senha" %>
+    </div><br><br><br>
+    <div class="small-1" style="left: 46%; position: absolute">
+      <%= f.submit "Criar", class: "button postfix" %>
+    </div>
+
 <% end %>
-<%= link_to "Cancelar", root_path %>
+<br><br>
+<div style="left: 47%; position: absolute">
+  <%=link_to "Cancelar", root_path %>
+</div>

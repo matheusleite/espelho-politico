@@ -3,6 +3,8 @@ class RankingsController < ApplicationController
     @themes = order_themes(Theme.all)
     @selected_theme_id = find_theme_id_by_params(params)
     @qtdOutros = count_other_themes
+
+    gon.data = @themes
   end
 
   def find_theme_id_by_params(params)
@@ -20,11 +22,10 @@ class RankingsController < ApplicationController
   end
 
   def count_other_themes
-    qtdThemes = Theme.count
     qtd = 0
-    for i in 10..qtdThemes
-      qtd = qtd + @themes[i].propositions.count
-      return qtd
+    for i in 11..Theme.count
+      qtd = qtd + @themes[i-1].propositions.count
     end
+    qtd
   end
 end

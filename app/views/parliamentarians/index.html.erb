@@ -123,8 +123,11 @@
                 <ul>
                 <% @parliamentarians.each do |p| %>
                   <p align="center"><span><img src="<%= p.url_photo %>"/></span></p>
-                  <p align="center"><b><%= link_to p.name, profile_path(p)%></b></p>
-                  <li align="left">Partido: <%= p.party %></li>
+                  <ul class="pricing-table">
+                    <li class="title"><%= p.name %></li>
+                    <li class="price">Partido: <%= p.party %></li>
+                    <li class="bullet-item" align="center"><a href="#"><%= link_to 'Ver Perfil', profile_path(p) %></a></li>
+                  </ul>
                 <%end%>
                 </ul>
               <%end%>
