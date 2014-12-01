@@ -51,6 +51,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'factory_girl'
   gem 'cucumber-rails', :require => false
+  gem 'rake'
 end
 
 # Gem Simplecov
