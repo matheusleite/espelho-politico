@@ -1,87 +1,140 @@
+<script type="text/javascript">
+  $(document).ready(function () {
+    var states = document.getElementsByClassName('parliamentarians_state')
+
+    for(var i = 0; i < states.length; i++) {
+      states[i].addEventListener('click', click_state, false);
+    }
+
+    function get_parliamentarians_per_state(value) { // value = state acronym
+      $.ajax({
+        url: "/parliamentarians/parliamentarians_per_state",
+        type: "GET",
+        dataType: "json",
+        data: {"id": value},
+        success: function (response) {
+            parliamentarian_list = document.getElementById('parliamentarian_list');
+
+            parliamentarian_list.innerHTML = ""
+
+            console.log(response)
+            for(var i = 0; i < response.length; i++) {
+                parliamentarian_list.innerHTML += "<div><ul><p align='center'><span><img src='" + response[i].url_photo + "'></span></p><p align='center'><b><a href='/profile/" + response[i].id +  "'> " + response[i].name + "</a></b></p><li align='left'> Partido: " + response[i].party + "</li><li align='left'>Estado: " + response[i].state + "</ul></div>";
+            }
+        },
+        error: function () {
+            parliamentarian_list = document.getElementById('parliamentarian_list');
+
+            parliamentarian_list.innerHTML = "<h3>Erro ao tentar obter parlamentares</h3>"
+
+        }
+      });
+    }
+
+    function click_state() {
+      var value = $(this).text();
+
+      get_parliamentarians_per_state(value.trim());
+      $('#drop1').foundation('dropdown', 'close', $('#drop1'));
+    }
+  });
+  $(document).ready(function () {
+    var partys = document.getElementsByClassName('parliamentarians_party')
+
+    for(var i = 0; i < partys.length; i++) {
+      partys[i].addEventListener('click', click_party, false);
+    }
+
+    function get_parliamentarians_per_party(value) { // value = party acronym
+      $.ajax({
+      url: "/parliamentarians/parliamentarians_per_party",
+        type: "GET",
+        dataType: "json",
+        data: {"id": value},
+        success: function (response) {
+            parliamentarian_list = document.getElementById('parliamentarian_list');
+
+            parliamentarian_list.innerHTML = ""
+
+            console.log(response)
+            for(var i = 0; i < response.length; i++) {
+            parliamentarian_list.innerHTML += "<div><ul><p align='center'><span><img src='" + response[i].url_photo + "'></span></p><p align='center'><b><a href='/profile/" + response[i].id +  "'> " + response[i].name + "</a></b></p><li align='left'> Partido: " + response[i].party + "</li><li align='left'>Estado: " + response[i].state + "</ul></div>";
+            }
+        },
+        error: function () {
+            parliamentarian_list = document.getElementById('parliamentarian_list');
+
+            parliamentarian_list.innerHTML = "<h3>Erro ao tentar obter parlamentares</h3>"
+
+            }
+      });
+    }
+
+    function click_party() {
+      var value = $(this).text();
+
+      get_parliamentarians_per_party(value.trim());
+      $('#drop2').foundation('dropdown', 'close', $('#drop2'));
+    }
+  });
+</script>
 <div class="row">
   <div class="small-12 columns">
     <div class="off-canvas-wrap" data-offcanvas>
       <div class="inner-wrap">
         <div class="large-0 pull-0 columns">
           <nav class="top-bar show-for-medium-up" data-topbar>
-            <dl class="sub-nav">
-            <nav class="top-bar show-for-medium-up" data-topbar>
-              <ul class="title-area">
+            <ul class="title-area">
               <li class="name">
                 <h1><a href="#">Perfil Parlamentar</a></h1>
               </li>
-              <dd><a href="#"><button data-dropdown="drop1" aria-controls="drop1" aria-expanded="false">Estados &raquo;</button></a></dd>
-              <dd><a href="#"><button data-dropdown="drop2" aria-controls="drop2" aria-expanded="false">Partidos &raquo;</button></a></dd>
-              <!-- <dd><a href="#">Suspended</a></dd>
-              <dd><a href="#">Suspended</a></dd> -->
+          </nav>
+            <dl class="sub-nav">
+              <p><dd><button data-dropdown="drop1" aria-controls="drop1" aria-expanded="false">Estados &raquo;</button></dd>
+              <dd><button data-dropdown="drop2" aria-controls="drop2" aria-expanded="false">Partidos &raquo;</button></dd>
+              <%= form_tag parliamentarians_path, method: :get do %>
+                <div class="small-5 columns">
+                  <%= text_field_tag :search, params[:search], id:"right-label", placeholder: "Nome do Parlamentar" %>
+                </div>
+                <div class="small-3 columns">
+                  <button name="Buscar" type="submit" class="button postfix">Buscar</button>
+                </div></p>
+              <%end%>
             </dl>
-            <ul id="drop1" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
-              <ul id="drop" class="[tiny small medium large content]f-dropdown" data-dropdown-content>
-              <div style="height:400px;line-height:3em;overflow:scroll;padding:3px;">
-                <% @ordened_states.each do |p| %>
-                  <li><a href="#"> <%= link_to @selected_state, p.state %> </a></li>
-                <%end%>
-              </ul>
+          <ul id="drop1" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
+            <ul id="drop" class="[tiny small medium large content]f-dropdown" data-dropdown-content>
+            <div style="height:400px;line-height:3em;overflow:scroll;padding:3px;">
+              <% @ordened_states.each do |p| %>
+                <li> <a class="parliamentarians_state"> <%= p.state %> </a> </li>
+              <%end%>
             </ul>
-            <ul id="drop2" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
-              <ul id="drop" class="[tiny small medium large content]f-dropdown" data-dropdown-content>
-              <div style="height:400px;line-height:3em;overflow:scroll;padding:3px;">
-                <% @ordened_partys.each do |p| %>
-                  <li><a href="#"> <%= link_to @selected_party, p.party %> </a></li>
-                <%end%>
-              </ul>
-            </ul>
-
-          <section class="top-bar-section">
-            <!-- Right Nav Section -->
-          </section>
-        </nav>
-        <nav class="tab-bar show-for-small">
-          <section class="left-small">
-            <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
-          </section>
-          <section class="middle tab-bar-section">
-            <h1 class="title">Offcanvas for Small</h1>
-          </section>
-        </nav>
-        <aside class="left-off-canvas-menu">
-          <ul class="off-canvas-list">
-            <li><label>Foundation</label></li>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
           </ul>
-        </aside>
-        <div style="width:983px;height:800px;line-height:3em;overflow:scroll;padding:5px;">
-          <%= form_tag parliamentarians_path, :method => 'get' do %>
-             <div class="row">
-                <div class="small-8">
-                  <p><div class="small-8 columns">
-                    <%= text_field_tag :search, params[:search], id:"right-label", placeholder: "Nome do Parlamentar" %>
-                  </div></p>
-                  <div class="small-3 columns">
-                    <%= submit_tag "Buscar", :name => nil , class: "button postfix" %>
-                  </div>
-              </div>
+          <ul id="drop2" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
+            <ul id="drop" class="[tiny small medium large content]f-dropdown" data-dropdown-content>
+            <div style="height:400px;line-height:3em;overflow:scroll;padding:3px;">
+              <% @ordened_partys.each do |p| %>
+                <li> <a class="parliamentarians_party"> <%= p.party %> </a> </li>
+              <%end%>
+            </ul>
+          </ul>
+          <div id="parliamentarian_list" style="width:940px;height:800px;line-height:3em;overflow:scroll;padding:5px;">
+            <div>
+              <% if !params[:search].blank? %>
+                <ul>
+                <% @parliamentarians.each do |p| %>
+                  <p align="center"><span><img src="<%= p.url_photo %>"/></span></p>
+                  <ul class="pricing-table">
+                    <li class="title"><%= p.name %></li>
+                    <li class="price">Partido: <%= p.party %></li>
+                    <li class="bullet-item" align="center"><a href="#"><%= link_to 'Ver Perfil', profile_path(p) %></a></li>
+                  </ul>
+                <%end%>
+                </ul>
+              <%end%>
             </div>
-          <% end %>
-          <div style="width:583px;height:800px;line-height:3em;overflow:scroll;padding:5px;">
-          <ul>
-            <% @parliamentarians.each do |p| %>
-              <p>
-              <center><a href="#"<span><img src="<%= p.url_photo %>"/></span></center>
-              <center><b><%= p.name %></b></center>
-              <li><right>Partido: <%= p.party %></right>
-              <li>Estado: <%= p.state %></li>
-              <li>Email: <%= p.email %> </li>
-              <li>Telefone: <%= p.phone %></li>
-              <li>Endereço: Praça dos Três Poderes - Esplanada dos Ministérios, Brasília. Gabinete: <%= p.cabinet %> </li>
-              </p>
-            <%end%>
-          </ul>
-        </div>
-       <a class="exit-off-canvas"></a>
-       </div>
-     </div>
-   </div>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
 </div>

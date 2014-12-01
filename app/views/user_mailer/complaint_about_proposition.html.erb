@@ -1,0 +1,9 @@
+<p>Vossa Excelência, senhor deputado <%= @parliamentarian.name.parameterize.titleize
+ %>, gostaria de solicitar a revisão das informações contidas no site da Câmara dos Deputados sobre a <%= link_to "#{@proposition.proposition_types} #{@proposition.number}/#{@proposition.year}", "http://www.camara.gov.br/proposicoesWeb/fichadetramitacao?idProposicao=#{@proposition.id}" %>
+
+<p>Seria de muita valia, que as informações ali contidas expressem de forma clara e concisa sobre o que se trata a <%= link_to "#{@proposition.proposition_types} #{@proposition.number}/#{@proposition.year}", "http://www.camara.gov.br/proposicoesWeb/fichadetramitacao?idProposicao=#{@proposition.id}" %></b></p>
+
+<p><b>Informações sobre o solicitante:</b><br>
+Nome: <%= @user.name%><br>
+Email: <%= @user.email%>
+</p>

@@ -5,12 +5,9 @@ class ParliamentariansController < ApplicationController
     @ordened_partys = order_partys(Parliamentarian.select(:party).distinct)
   end
 
-  def show
-    @parliamentarian = Parliamentarian.find(params[:id])
-  end
-
   def new
     @parliamentarian = Parliamentarian.new
+    render nothing: true
   end
 
   def order_states(state)
@@ -23,11 +20,17 @@ class ParliamentariansController < ApplicationController
     party.sort! {|a,b| a.party <=> b.party}
   end
 
-  def parliamentarians_per_state(state)
-    @selected_state = Parliamentarian.where(:state)
+  def parliamentarians_per_state
+    @selected_state = Parliamentarian.where(state: params[:id])
+    respond_to do |format|
+      format.js { render json: @selected_state }
+    end
   end
 
-  def parliamentarians_per_party(party)
-    @selected_party = Parliamentarian.where(:party)
+  def parliamentarians_per_party
+    @selected_party = Parliamentarian.where(party: params[:id])
+    respond_to do |format|
+      format.js { render json: @selected_party }
+    end
   end
 end

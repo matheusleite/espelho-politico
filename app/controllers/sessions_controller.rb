@@ -4,7 +4,6 @@ class SessionsController < Devise::SessionsController
 
     if user && user.valid_password?(params[:user][:password])
       flash[:success] = "Logado com sucesso" if is_navigational_format?
-      # set_flash_message(:notice, :signed_in) 
       sign_in(:user, user)
       respond_with user, :location => after_sign_in_path_for(user)
     else

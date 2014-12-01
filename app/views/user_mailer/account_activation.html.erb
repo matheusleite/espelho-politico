@@ -1,9 +1,0 @@
-<h1>Espelho Político</h1>
-
-<p>Olá <%= @user.name %>,</p>
-
-<p>
-Bem vindo ao Espelho Político!<br>Clique no link abaixo para ativar sua conta:
-</p>
-
-<%= link_to 'Ativar Conta', edit_account_activation_url(@user.activation_token, email: @user.email) %>

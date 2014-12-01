@@ -4,7 +4,7 @@ import sys
 import xml.etree.ElementTree as ET
 from datetime import date
 from time import sleep
-from urllib2 import HTTPError, URLError, urlopen
+from urllib2 import urlopen
 
 import MySQLdb
 import unicodedata
@@ -36,7 +36,7 @@ class Parlamentar():
         self.gabinete = 0
 
 
-# Classe para proposições
+#  Classe para proposições
 class Proposicao():
     def __init__(self):
         self.id_proposicao = 0
@@ -89,6 +89,8 @@ for xml_parlamentar in xml_parlamentares:
         print "Parlamentar", parlamentar.nome, "encontrad@"
     except MySQLdb.IntegrityError:
         print "Parlamentar", parlamentar.nome, "já cadastrado"
+    except Exception:
+        print "Erro!"
     print
     parlamentares.append(parlamentar)
     total_parlamentares += 1
@@ -113,15 +115,10 @@ for parlamentar in parlamentares:
         url_proposicoes = 'http://www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoes?sigla=%s&numero=&ano=&datApresentacaoIni=&datApresentacaoFim=&parteNomeAutor=%s&idTipoAutor=&siglaPartidoAutor=&siglaUFAutor=&generoAutor=&codEstado=&codOrgaoEstado=&emTramitacao=' % (pl, nome.replace(' ', '+'))
         try:
             xml_proposicoes = ET.parse(urlopen(url_proposicoes))
-        except HTTPError:
-            print "Parlamentar sem proposição de", pl, ":'("
+        except Exception:
+            print "Parlamentar sem proposição de", pl ,":'("
             print
-            continue
-        except URLError:
-            print "Erro de conexão..."
-            print "Prosseguindo..."
-            print
-            sleep(120)
+            sleep(3)
             continue
         num_proposicoes = 0
         proposicoes = xml_proposicoes.getroot()
@@ -129,7 +126,7 @@ for parlamentar in parlamentares:
             url_proposicao = 'http://www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ObterProposicaoPorID?IdProp=%s' % proposicao.find('id').text
             try:
                 xml_proposicao = ET.parse(urlopen(url_proposicao))
-            except URLError:
+            except Exception:
                 print "Erro ao abrir URL"
                 print
                 sleep(3)
@@ -157,6 +154,8 @@ for parlamentar in parlamentares:
                         db.commit()
                     except MySQLdb.IntegrityError:
                         print "Tema já cadastrado"
+                    except Exception:
+                        print "Exception"
                 proposicao.autor = parlamentar
                 data = root_proposicao.find('DataApresentacao').text
                 data = data.split('/')
@@ -175,6 +174,9 @@ for parlamentar in parlamentares:
                     db.commit()
                 except MySQLdb.IntegrityError:
                     print "Proposição '", proposicao.ementa, "' existente no banco de dados."
+                except Exception:
+                    print "Erro!"
+                    print
 
                 for tema in temas.split(';'):
                     try:
@@ -197,6 +199,9 @@ for parlamentar in parlamentares:
                     except IndexError:
                         print "Erro ao recuperar tema"
                         print
+                    except Exception:
+                        print "Erro!"
+                        print
                 num_proposicoes += 1
                 total_proposicoes += 1
         if num_proposicoes > 0:
@@ -206,7 +211,7 @@ for parlamentar in parlamentares:
         else:
             print "Parlamentar sem proposição de", pl ,":'("
             print
-        sleep(5)
+        sleep(3)
 
 print
 print

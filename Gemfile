@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.5'
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '0.3.16'
+# Use sqlite3 as the database for Active Record
+gem 'sqlite3'
 # Use SCSS for stylesheets
 # gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -28,7 +30,7 @@ gem 'spring',        group: :development
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
+gem 'gon'
 # Use unicorn as the app server
 # gem 'unicorn'
 
@@ -38,9 +40,6 @@ gem 'capistrano-rails', group: :development
 
 # Use foundation framework to front-end development
 gem 'foundation-rails'
-
-# gem chartkick for simple graphs
-gem "chartkick"
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
@@ -53,6 +52,7 @@ group :development, :test do
   gem 'factory_girl'
   gem 'cucumber-rails', :require => false
 end
+
 # Gem Simplecov
 group :coverage do
   gem 'simplecov', :require => false
@@ -62,5 +62,5 @@ gem 'cancancan', '~> 1.9'
 
 gem 'devise'
 gem 'omniauth'
-gem 'omniauth-facebook' 
+gem 'omniauth-facebook'
 gem 'omniauth-twitter'

@@ -25,13 +25,22 @@ RSpec.describe RankingsController, :type => :controller do
       create(:proposition, id: i)
       Proposition.find(i).themes << Theme.find_by(description: "Indústria, Comércio(até 1953)")
     end
+
+    for i in 1..10
+      create(:theme, id: 4+i)
+      create(:proposition, id: 40+i)
+      Proposition.find(40+i).themes << Theme.find(4+i)
+    end
   end
 
   describe "GET index" do
-    it "return @themes correctly" do
+    it "render the index correctly" do
       get :index
       expect(response).to render_template("index")
-      expect(assigns(:themes)).not_to be_nil
+    end
+
+    it "returns @themes correctly" do
+      expect(assigns(:themes)).not_to eq([])
     end
 
     it "@selected_theme_id its null" do
@@ -76,6 +85,13 @@ RSpec.describe RankingsController, :type => :controller do
       post :index, params
       expect(response).to render_template("index")
       expect(assigns(:selected_theme_id)).not_to be_nil
+    end
+  end
+
+  describe "#count_other_themes" do
+    it "return the quantity of propositions of other themes" do
+      controller.instance_variable_set(:@themes, controller.order_themes(Theme.all))
+      expect(controller.count_other_themes).to eq(4)
     end
   end
 end

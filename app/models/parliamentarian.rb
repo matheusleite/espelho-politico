@@ -4,7 +4,9 @@ class Parliamentarian < ActiveRecord::Base
 
   def self.search(search)
     if search
+# :nocov:
       where(['name LIKE ?', "%#{search}%"])
+# :nocov:    
     else
       take(600)
     end
